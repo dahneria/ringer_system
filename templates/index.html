@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת צלצולים חכמה</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>Webindex.htmlscript.jsstyle.cssserver.py מערכת צלצולים 🎶</h1>
+
+    <div class="tab-container">
+        <button class="tab-btn active" data-tab="immediate-call">קריאה מיידית</button>
+        <button class="tab-btn" data-tab="events-schedule">לוח זמנים</button>
+        <button class="tab-btn" data-tab="song-library">ספריית שירים</button>
+    </div>
+
+    <div id="immediate-call" class="tab-content active card">
+        <h2>🎙️ הקלטה ושליחה מיידית</h2>
+        <p id="record-status">מוכן להקלטה...</p>
+        <div class="actions">
+            <button id="start-record" class="btn">התחל הקלטה</button>
+            <button id="stop-record" class="btn cancel" disabled>עצור והשמע</button>
+        </div>
+        <audio id="panic-playback" controls></audio>
+        <button id="send-panic" class="btn" disabled>🚀 שלח קריאה!</button>
+    </div>
+
+    <div id="events-schedule" class="tab-content card">
+        <h2>🗓️ אירועים מתוזמנים</h2>
+        <button id="open-event-modal" class="btn">➕ יצירת אירוע חדש</button>
+        <ul id="events-list">
+            </ul>
+    </div>
+
+    <div id="song-library" class="tab-content card">
+        <h2>🎵 ספריית שירים</h2>
+        <button id="add-song-btn" class="btn">➕ הוסף שיר חדש</button>
+        <ul id="song-list">
+            </ul>
+    </div>
+    
+    <div id="event-modal" class="modal-bg">
+        <div class="modal">
+            <h3>יצירת/עריכת אירוע</h3>
+            <form id="event-form">
+                <label for="new-event-name">שם האירוע:</label>
+                <input type="text" id="new-event-name" required>
+                
+                <label for="new-event-time">שעת האירוע:</label>
+                <input type="time" id="new-event-time" value="09:00" required>
+                
+                <label for="new-event-day">יום האירוע:</label>
+                <select id="new-event-day" required>
+                    <option value="ראשון">ראשון</option>
+                    <option value="שני">שני</option>
+                    <option value="שלישי">שלישי</option>
+                    <option value="רביעי">רביעי</option>
+                    <option value="חמישי">חמישי</option>
+                    <option value="שישי">שישי</option>
+                    <option value="שבת">שבת</option>
+                </select>
+                
+                <label for="event-song-select">בחר שיר לניגון:</label>
+                <select id="event-song-select" required>
+                    </select>
+                
+                <div class="actions">
+                    <button type="submit" id="save-event-btn" class="btn">שמור אירוע</button>
+                    <button type="button" id="cancel-event-btn" class="btn cancel">בטל</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="add-song-modal" class="modal-bg">
+        <div class="modal">
+            <h3>🎧 הוספת שיר חדש</h3>
+            <form id="song-form">
+                <label for="new-song-name">שם השיר:</label>
+                <input type="text" id="new-song-name" required>
+                
+                <label for="new-song-file">קובץ שיר (MP3):</label>
+                <input type="file" id="new-song-file" accept="audio/*">
+                
+                <label>תצוגת גל קול:</label>
+                <canvas id="waveform" width="400" height="60"></canvas>
+
+                <label for="clip-start-range" id="clip-start-label">תחילת קטע (0.00 שניות):</label>
+                <input type="range" id="clip-start-range" min="0" max="10" step="0.01" value="0">
+                
+                <label for="clip-end-range" id="clip-end-label">סיום קטע (0.00 שניות):</label>
+                <input type="range" id="clip-end-range" min="0" max="10" step="0.01" value="0">
+                
+                <div class="actions">
+                    <button type="submit" id="save-song-btn" class="btn">שמור שיר</button>
+                    <button type="button" id="cancel-song-btn" class="btn cancel">בטל</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
